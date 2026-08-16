@@ -5,15 +5,354 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>AdMoney</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f6f8;
+            color: #202124;
+            min-height: 100vh;
+        }
+
+        header {
+            background: #ffffff;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 18px 30px;
+        }
+
+        .header-content {
+            max-width: 1000px;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .logo span {
+            color: #16a34a;
+        }
+
+        .status {
+            font-size: 14px;
+            color: #6b7280;
+        }
+
+        main {
+            max-width: 1000px;
+            margin: 50px auto;
+            padding: 0 20px;
+        }
+
+        .welcome {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .welcome h1 {
+            font-size: 38px;
+            margin-bottom: 12px;
+        }
+
+        .welcome p {
+            font-size: 17px;
+            color: #6b7280;
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 18px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.06);
+        }
+
+        .balance-card {
+            text-align: center;
+        }
+
+        .card-title {
+            font-size: 15px;
+            color: #6b7280;
+            margin-bottom: 15px;
+        }
+
+        .balance {
+            font-size: 46px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .balance-label {
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        .watch-card {
+            text-align: center;
+        }
+
+        .watch-card h2 {
+            font-size: 23px;
+            margin-bottom: 10px;
+        }
+
+        .watch-card p {
+            color: #6b7280;
+            line-height: 1.5;
+            margin-bottom: 25px;
+        }
+
+        .watch-button {
+            width: 100%;
+            border: none;
+            border-radius: 12px;
+            padding: 15px;
+            background: #16a34a;
+            color: white;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.15s, opacity 0.15s;
+        }
+
+        .watch-button:hover {
+            opacity: 0.92;
+        }
+
+        .watch-button:active {
+            transform: scale(0.98);
+        }
+
+        .watch-button:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+        }
+
+        .history {
+            margin-top: 25px;
+        }
+
+        .history h2 {
+            font-size: 22px;
+            margin-bottom: 20px;
+        }
+
+        .history-empty {
+            text-align: center;
+            padding: 30px;
+            color: #9ca3af;
+            border: 2px dashed #e5e7eb;
+            border-radius: 12px;
+        }
+
+        .history-list {
+            list-style: none;
+        }
+
+        .history-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #eeeeee;
+        }
+
+        .history-item:last-child {
+            border-bottom: none;
+        }
+
+        .history-description {
+            font-size: 15px;
+        }
+
+        .history-date {
+            color: #9ca3af;
+            font-size: 13px;
+            margin-top: 4px;
+        }
+
+        .history-reward {
+            color: #16a34a;
+            font-weight: bold;
+        }
+
+        footer {
+            text-align: center;
+            color: #9ca3af;
+            font-size: 13px;
+            padding: 30px 20px;
+        }
+
+        @media (max-width: 700px) {
+            header {
+                padding: 16px 20px;
+            }
+
+            .header-content {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            main {
+                margin-top: 30px;
+            }
+
+            .welcome h1 {
+                font-size: 30px;
+            }
+
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-    <h1>AdMoney</h1>
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                Ad<span>Money</span>
+            </div>
 
-    <p>Gana recompensas viendo contenido publicitario.</p>
+            <div class="status">
+                Sistema de recompensas
+            </div>
+        </div>
+    </header>
 
-    <button>Ver anuncio</button>
+    <main>
+
+        <section class="welcome">
+            <h1>Gana recompensas</h1>
+            <p>Participa en actividades publicitarias y acumula recompensas.</p>
+        </section>
+
+        <section class="dashboard">
+
+            <div class="card balance-card">
+                <div class="card-title">
+                    Tu saldo
+                </div>
+
+                <div class="balance" id="balance">
+                    0
+                </div>
+
+                <div class="balance-label">
+                    puntos
+                </div>
+            </div>
+
+            <div class="card watch-card">
+
+                <h2>Ver anuncio</h2>
+
+                <p>
+                    Mira una actividad publicitaria y recibe una recompensa
+                    de prueba.
+                </p>
+
+                <button class="watch-button" id="watchButton">
+                    Ver anuncio
+                </button>
+
+            </div>
+
+        </section>
+
+        <section class="card history">
+
+            <h2>Historial</h2>
+
+            <div class="history-empty" id="historyEmpty">
+                Todavía no tienes actividades.
+            </div>
+
+            <ul class="history-list" id="historyList"></ul>
+
+        </section>
+
+    </main>
+
+    <footer>
+        AdMoney © 2026
+    </footer>
+
+    <script>
+        let balance = 0;
+
+        const balanceElement = document.getElementById("balance");
+        const watchButton = document.getElementById("watchButton");
+        const historyEmpty = document.getElementById("historyEmpty");
+        const historyList = document.getElementById("historyList");
+
+        watchButton.addEventListener("click", () => {
+
+            const reward = 10;
+
+            watchButton.disabled = true;
+            watchButton.textContent = "Procesando...";
+
+            setTimeout(() => {
+
+                balance += reward;
+
+                balanceElement.textContent = balance;
+
+                historyEmpty.style.display = "none";
+
+                const item = document.createElement("li");
+                item.className = "history-item";
+
+                const now = new Date();
+
+                const date = now.toLocaleString("es-CO", {
+                    dateStyle: "short",
+                    timeStyle: "short"
+                });
+
+                item.innerHTML = `
+                    <div>
+                        <div class="history-description">
+                            Actividad publicitaria
+                        </div>
+
+                        <div class="history-date">
+                            ${date}
+                        </div>
+                    </div>
+
+                    <div class="history-reward">
+                        +${reward} puntos
+                    </div>
+                `;
+
+                historyList.prepend(item);
+
+                watchButton.disabled = false;
+                watchButton.textContent = "Ver anuncio";
+
+            }, 1500);
+        });
+    </script>
 
 </body>
 </html>
