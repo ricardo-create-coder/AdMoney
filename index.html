@@ -297,7 +297,7 @@
     </footer>
 
     <script>
-        let balance = 0;
+        let balance = Number(localStorage.getItem("admoney_balance")) || 0;
 
         const balanceElement = document.getElementById("balance");
         const watchButton = document.getElementById("watchButton");
@@ -315,6 +315,8 @@
 
                 balance += reward;
 
+                localStorage.setItem("admoney_balance", balance);
+                
                 balanceElement.textContent = balance;
 
                 historyEmpty.style.display = "none";
