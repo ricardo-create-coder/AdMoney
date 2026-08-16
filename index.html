@@ -242,7 +242,9 @@
 
         <section class="welcome">
             <h1>Gana recompensas</h1>
-            <p>Participa en actividades publicitarias y acumula recompensas.</p>
+            <p>
+                Participa en actividades publicitarias y acumula recompensas.
+            </p>
         </section>
 
         <section class="dashboard">
@@ -297,63 +299,249 @@
     </footer>
 
     <script>
-        let balance = Number(localStorage.getItem("admoney_balance")) || 0;
+        /*
+         * ==========================================
+         * CONFIGURACIÓN
+         * ==========================================
+         */
+
+        const STORAGE_BALANCE = "admoney_balance";
+        const STORAGE_HISTORY = "admoney_history";
+
+        const REWARD_PER_ACTIVITY = 10;
+
+        /*
+         * ==========================================
+         * ELEMENTOS DE LA PÁGINA
+         * ==========================================
+         */
 
         const balanceElement = document.getElementById("balance");
         const watchButton = document.getElementById("watchButton");
         const historyEmpty = document.getElementById("historyEmpty");
         const historyList = document.getElementById("historyList");
 
-        watchButton.addEventListener("click", () => {
+        /*
+         * ==========================================
+         * CARGAR DATOS GUARDADOS
+         * ==========================================
+         */
 
-            const reward = 10;
+        let balance = loadBalance();
+        let history = loadHistory();
+
+        /*
+         * ==========================================
+         * INICIAR INTERFAZ
+         * ==========================================
+         */
+
+        renderBalance();
+        renderHistory();
+
+        /*
+         * ==========================================
+         * EVENTO DEL BOTÓN
+         * ==========================================
+         */
+
+        watchButton.addEventListener("click", () => {
 
             watchButton.disabled = true;
             watchButton.textContent = "Procesando...";
 
+            /*
+             * Esto solamente simula el procesamiento
+             * de una actividad publicitaria.
+             *
+             * Más adelante aquí podremos conectar
+             * el sistema publicitario real.
+             */
+
             setTimeout(() => {
 
-                balance += reward;
-
-                localStorage.setItem("admoney_balance", balance);
-                
-                balanceElement.textContent = balance;
-
-                historyEmpty.style.display = "none";
-
-                const item = document.createElement("li");
-                item.className = "history-item";
-
-                const now = new Date();
-
-                const date = now.toLocaleString("es-CO", {
-                    dateStyle: "short",
-                    timeStyle: "short"
-                });
-
-                item.innerHTML = `
-                    <div>
-                        <div class="history-description">
-                            Actividad publicitaria
-                        </div>
-
-                        <div class="history-date">
-                            ${date}
-                        </div>
-                    </div>
-
-                    <div class="history-reward">
-                        +${reward} puntos
-                    </div>
-                `;
-
-                historyList.prepend(item);
+                addReward(REWARD_PER_ACTIVITY);
 
                 watchButton.disabled = false;
                 watchButton.textContent = "Ver anuncio";
 
             }, 1500);
         });
+
+        /*
+         * ==========================================
+         * SALDO
+         * ==========================================
+         */
+
+        function loadBalance() {
+            const savedBalance = localStorage.getItem(STORAGE_BALANCE);
+
+            if (savedBalance === null) {
+                return 0;
+            }
+
+            const parsedBalance = Number(savedBalance);
+
+            if (!Number.isFinite(parsedBalance) || parsedBalance < 0) {
+                return 0;
+            }
+
+            return parsedBalance;
+        }
+
+        function saveBalance() {
+            localStorage.setItem(
+                STORAGE_BALANCE,
+                String(balance)
+            );
+        }
+
+        function renderBalance() {
+            balanceElement.textContent = balance;
+        }
+
+        function addReward(amount) {
+
+            balance += amount;
+
+            saveBalance();
+            renderBalance();
+
+            addHistoryEntry(amount);
+        }
+
+        /*
+         * ==========================================
+         * HISTORIAL
+         * ==========================================
+         */
+
+        function loadHistory() {
+
+            const savedHistory =
+                localStorage.getItem(STORAGE_HISTORY);
+
+            if (savedHistory === null) {
+                return [];
+            }
+
+            try {
+
+                const parsedHistory = JSON.parse(savedHistory);
+
+                if (!Array.isArray(parsedHistory)) {
+                    return [];
+                }
+
+                return parsedHistory;
+
+            } catch (error) {
+
+                console.error(
+                    "No se pudo cargar el historial:",
+                    error
+                );
+
+                return [];
+            }
+        }
+
+        function saveHistory() {
+
+            localStorage.setItem(
+                STORAGE_HISTORY,
+                JSON.stringify(history)
+            );
+        }
+
+        function addHistoryEntry(reward) {
+
+            const entry = {
+                id: Date.now(),
+                type: "Actividad publicitaria",
+                reward: reward,
+                date: new Date().toISOString()
+            };
+
+            history.unshift(entry);
+
+            saveHistory();
+            renderHistory();
+        }
+
+        function renderHistory() {
+
+            historyList.innerHTML = "";
+
+            if (history.length === 0) {
+
+                historyEmpty.style.display = "block";
+
+                return;
+            }
+
+            historyEmpty.style.display = "none";
+
+            history.forEach(entry => {
+
+                const item = document.createElement("li");
+
+                item.className = "history-item";
+
+                const description =
+                    document.createElement("div");
+
+                description.className =
+                    "history-description";
+
+                description.textContent = entry.type;
+
+                const date =
+                    document.createElement("div");
+
+                date.className =
+                    "history-date";
+
+                date.textContent =
+                    formatDate(entry.date);
+
+                const left =
+                    document.createElement("div");
+
+                left.appendChild(description);
+                left.appendChild(date);
+
+                const reward =
+                    document.createElement("div");
+
+                reward.className =
+                    "history-reward";
+
+                reward.textContent =
+                    `+${entry.reward} puntos`;
+
+                item.appendChild(left);
+                item.appendChild(reward);
+
+                historyList.appendChild(item);
+
+            });
+        }
+
+        function formatDate(dateString) {
+
+            const date = new Date(dateString);
+
+            if (Number.isNaN(date.getTime())) {
+                return "Fecha desconocida";
+            }
+
+            return date.toLocaleString("es-CO", {
+                dateStyle: "short",
+                timeStyle: "short"
+            });
+        }
     </script>
 
 </body>
