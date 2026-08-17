@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>AdMoney</title>
 
     <style>
@@ -22,7 +21,8 @@
             --muted: #6b7280;
             --border: #e5e7eb;
             --danger: #dc2626;
-            --warning: #d97706;
+            --warning: #b45309;
+            --info: #2563eb;
         }
 
         body {
@@ -32,8 +32,7 @@
             min-height: 100vh;
         }
 
-        button,
-        input {
+        button, input {
             font-family: inherit;
         }
 
@@ -52,14 +51,14 @@
         #authScreen {
             min-height: 100vh;
             display: flex;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
             padding: 20px;
         }
 
         .auth-card {
             width: 100%;
-            max-width: 430px;
+            max-width: 460px;
             background: var(--card);
             border-radius: 20px;
             padding: 35px;
@@ -73,30 +72,32 @@
             margin-bottom: 8px;
         }
 
-        .auth-logo span {
+        .auth-logo span,
+        .logo span {
             color: var(--primary);
         }
 
         .auth-subtitle {
             text-align: center;
             color: var(--muted);
-            margin-bottom: 30px;
+            margin-bottom: 28px;
         }
 
         .auth-tabs {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            margin-bottom: 25px;
+            gap: 4px;
+            padding: 4px;
             background: #f3f4f6;
             border-radius: 10px;
-            padding: 4px;
+            margin-bottom: 25px;
         }
 
         .auth-tab {
             border: none;
             background: transparent;
-            padding: 11px;
             border-radius: 8px;
+            padding: 11px;
             font-weight: bold;
             color: var(--muted);
         }
@@ -108,7 +109,7 @@
         }
 
         .form-group {
-            margin-bottom: 18px;
+            margin-bottom: 17px;
         }
 
         .form-group label {
@@ -125,10 +126,17 @@
             border-radius: 10px;
             outline: none;
             font-size: 15px;
+            background: white;
         }
 
         .form-group input:focus {
             border-color: var(--primary);
+        }
+
+        .form-hint {
+            margin-top: 6px;
+            font-size: 12px;
+            color: var(--muted);
         }
 
         .primary-button {
@@ -140,25 +148,38 @@
             color: white;
             font-size: 16px;
             font-weight: bold;
-            transition: 0.15s;
         }
 
         .primary-button:hover {
             background: var(--primary-dark);
         }
 
+        .primary-button:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+        }
+
         .form-message {
-            margin-top: 15px;
-            font-size: 14px;
+            min-height: 20px;
+            margin-top: 14px;
             text-align: center;
+            font-size: 14px;
         }
 
-        .form-message.error {
-            color: var(--danger);
+        .error {
+            color: var(--danger) !important;
         }
 
-        .form-message.success {
-            color: var(--primary);
+        .success {
+            color: var(--primary) !important;
+        }
+
+        .info-message {
+            color: var(--info) !important;
+        }
+
+        .warning-message {
+            color: var(--warning) !important;
         }
 
         /* =========================================
@@ -170,20 +191,20 @@
         }
 
         header {
+            position: sticky;
+            top: 0;
+            z-index: 20;
             background: white;
             border-bottom: 1px solid var(--border);
             padding: 16px 25px;
-            position: sticky;
-            top: 0;
-            z-index: 10;
         }
 
         .header-content {
             max-width: 1100px;
             margin: auto;
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            justify-content: space-between;
             gap: 20px;
         }
 
@@ -192,31 +213,23 @@
             font-weight: bold;
         }
 
-        .logo span {
-            color: var(--primary);
-        }
-
         .user-area {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 12px;
         }
 
         .username-display {
-            font-size: 14px;
             color: var(--muted);
+            font-size: 14px;
         }
 
         .logout-button {
             border: 1px solid var(--border);
             background: white;
-            padding: 9px 13px;
             border-radius: 9px;
+            padding: 9px 13px;
             font-weight: bold;
-        }
-
-        .logout-button:hover {
-            background: #f9fafb;
         }
 
         nav {
@@ -241,10 +254,6 @@
             border-radius: 9px;
             font-weight: bold;
             white-space: nowrap;
-        }
-
-        .nav-button:hover {
-            background: #f3f4f6;
         }
 
         .nav-button.active {
@@ -287,10 +296,12 @@
             margin-bottom: 25px;
         }
 
-        .stat-card {
+        .stat-card,
+        .card,
+        .history-card {
             background: white;
             border-radius: 17px;
-            padding: 25px;
+            padding: 28px;
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
         }
 
@@ -317,13 +328,6 @@
             gap: 20px;
         }
 
-        .card {
-            background: white;
-            border-radius: 17px;
-            padding: 28px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
-        }
-
         .card h2 {
             font-size: 21px;
             margin-bottom: 10px;
@@ -344,7 +348,6 @@
         }
 
         .watch-button {
-            margin-top: 22px;
             width: 100%;
             border: none;
             border-radius: 11px;
@@ -353,6 +356,7 @@
             color: white;
             font-size: 17px;
             font-weight: bold;
+            margin-top: 22px;
         }
 
         .watch-button:hover {
@@ -383,21 +387,78 @@
 
         .progress-fill {
             height: 100%;
-            background: var(--primary);
             width: 0%;
+            background: var(--primary);
             transition: width 0.3s;
+        }
+
+        .verification-banner {
+            margin-bottom: 25px;
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            color: #1e40af;
+            border-radius: 13px;
+            padding: 15px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        .verification-banner button {
+            flex-shrink: 0;
+            border: 1px solid #93c5fd;
+            background: white;
+            color: #1d4ed8;
+            border-radius: 9px;
+            padding: 9px 13px;
+            font-weight: bold;
+        }
+
+        /* =========================================
+           EMAIL VERIFICATION
+           ========================================= */
+
+        .verification-card {
+            max-width: 700px;
+        }
+
+        .verification-status {
+            padding: 13px 15px;
+            border-radius: 10px;
+            background: #f3f4f6;
+            color: var(--muted);
+            margin: 20px 0;
+        }
+
+        .verification-status.verified {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .verification-status.unverified {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .secondary-button {
+            border: 1px solid var(--border);
+            background: white;
+            color: var(--text);
+            border-radius: 10px;
+            padding: 11px 15px;
+            font-weight: bold;
+        }
+
+        .secondary-button:disabled {
+            color: #9ca3af;
+            background: #f9fafb;
+            cursor: not-allowed;
         }
 
         /* =========================================
            HISTORY
            ========================================= */
-
-        .history-card {
-            background: white;
-            border-radius: 17px;
-            padding: 28px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
-        }
 
         .empty-state {
             text-align: center;
@@ -407,11 +468,13 @@
             border-radius: 13px;
         }
 
-        .history-list {
+        .history-list,
+        .withdraw-list {
             list-style: none;
         }
 
-        .history-item {
+        .history-item,
+        .withdraw-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -420,7 +483,8 @@
             border-bottom: 1px solid #eeeeee;
         }
 
-        .history-item:last-child {
+        .history-item:last-child,
+        .withdraw-item:last-child {
             border-bottom: none;
         }
 
@@ -435,8 +499,8 @@
         }
 
         .history-reward {
-            font-weight: bold;
             color: var(--primary);
+            font-weight: bold;
             white-space: nowrap;
         }
 
@@ -444,16 +508,17 @@
            WITHDRAW
            ========================================= */
 
-        .withdraw-grid {
+        .withdraw-grid,
+        .account-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 20px;
         }
 
         .withdraw-balance {
+            margin: 15px 0 5px;
             font-size: 38px;
             font-weight: bold;
-            margin: 15px 0 5px;
         }
 
         .withdraw-note {
@@ -472,8 +537,8 @@
             padding: 14px;
             background: var(--primary);
             color: white;
-            font-weight: bold;
             font-size: 16px;
+            font-weight: bold;
         }
 
         .withdraw-button:disabled {
@@ -482,32 +547,9 @@
         }
 
         .withdraw-message {
+            min-height: 20px;
             margin-top: 14px;
             font-size: 14px;
-        }
-
-        .withdraw-message.error {
-            color: var(--danger);
-        }
-
-        .withdraw-message.success {
-            color: var(--primary);
-        }
-
-        .withdraw-list {
-            list-style: none;
-        }
-
-        .withdraw-item {
-            padding: 15px 0;
-            border-bottom: 1px solid #eeeeee;
-            display: flex;
-            justify-content: space-between;
-            gap: 15px;
-        }
-
-        .withdraw-item:last-child {
-            border-bottom: none;
         }
 
         .withdraw-status {
@@ -520,16 +562,11 @@
            ACCOUNT
            ========================================= */
 
-        .account-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-
         .account-value {
             font-size: 22px;
             font-weight: bold;
             margin-top: 8px;
+            word-break: break-word;
         }
 
         .danger-button {
@@ -540,10 +577,6 @@
             border-radius: 10px;
             font-weight: bold;
             margin-top: 20px;
-        }
-
-        .danger-button:hover {
-            background: #fee2e2;
         }
 
         footer {
@@ -570,6 +603,11 @@
                 width: 100%;
                 justify-content: space-between;
             }
+
+            .verification-banner {
+                align-items: flex-start;
+                flex-direction: column;
+            }
         }
     </style>
 </head>
@@ -577,7 +615,7 @@
 <body>
 
     <!-- =========================================
-         PANTALLA DE AUTENTICACIÓN
+         AUTENTICACIÓN
          ========================================= -->
 
     <section id="authScreen">
@@ -610,19 +648,20 @@
 
             </div>
 
+
             <!-- LOGIN -->
 
             <form id="loginForm">
 
                 <div class="form-group">
 
-                    <label for="loginUsername">
-                        Usuario
+                    <label for="loginEmail">
+                        Correo electrónico
                     </label>
 
                     <input
-                        id="loginUsername"
-                        type="text"
+                        id="loginEmail"
+                        type="email"
                         autocomplete="username"
                         required
                     >
@@ -652,6 +691,7 @@
 
             </form>
 
+
             <!-- REGISTRO -->
 
             <form
@@ -667,9 +707,9 @@
                     <input
                         id="registerUsername"
                         type="text"
-                        autocomplete="username"
                         minlength="3"
                         maxlength="20"
+                        autocomplete="username"
                         required
                     >
 
@@ -688,6 +728,10 @@
                         required
                     >
 
+                    <div class="form-hint">
+                        Recibirás un enlace de verificación.
+                    </div>
+
                 </div>
 
                 <div class="form-group">
@@ -699,8 +743,8 @@
                     <input
                         id="registerPassword"
                         type="password"
-                        autocomplete="new-password"
                         minlength="6"
+                        autocomplete="new-password"
                         required
                     >
 
@@ -713,6 +757,7 @@
                 </button>
 
             </form>
+
 
             <div
                 id="authMessage"
@@ -795,6 +840,29 @@
 
 
         <main>
+
+            <!-- VERIFICACIÓN -->
+
+            <div
+                id="verificationBanner"
+                class="verification-banner hidden">
+
+                <div>
+                    <strong>Verifica tu correo.</strong>
+                    <span>
+                        Debes confirmar tu dirección antes de
+                        utilizar las funciones de recompensa.
+                    </span>
+                </div>
+
+                <button
+                    id="bannerVerifyButton"
+                    type="button">
+                    Enviar verificación
+                </button>
+
+            </div>
+
 
             <!-- =====================================
                  INICIO
@@ -887,21 +955,21 @@
                         </h2>
 
                         <p>
-                            Participa en una actividad y recibe
-                            una recompensa de prueba.
+                            La actividad es simulada en esta fase
+                            del proyecto.
                         </p>
 
                         <button
                             class="watch-button"
                             id="watchButton"
                             type="button">
-                            Ver anuncio
+                            Ver actividad
                         </button>
 
                         <div
                             class="limit-info"
                             id="limitInfo">
-                            Máximo de 10 actividades al día
+                            10 actividades restantes hoy
                         </div>
 
                         <div class="progress-container">
@@ -923,23 +991,19 @@
                     <div class="card">
 
                         <h2>
-                            ¿Cómo funciona?
+                            Estado de tu correo
                         </h2>
 
-                        <p>
-                            Esta versión es un prototipo.
-                            Las actividades y recompensas son
-                            simuladas para probar el funcionamiento
-                            de AdMoney.
-                        </p>
-
-                        <br>
+                        <div
+                            id="homeVerificationStatus"
+                            class="verification-status">
+                            Comprobando...
+                        </div>
 
                         <p>
-                            Más adelante podremos conectar un
-                            sistema publicitario compatible y
-                            reemplazar las recompensas de prueba
-                            por datos reales.
+                            La validación de formato no demuestra
+                            que una persona controle el buzón.
+                            Para eso usamos un enlace de verificación.
                         </p>
 
                     </div>
@@ -999,7 +1063,6 @@
                     Solicita un retiro de tus puntos.
                 </p>
 
-
                 <div class="withdraw-grid">
 
                     <div class="card">
@@ -1017,7 +1080,6 @@
                         <div class="withdraw-note">
                             puntos
                         </div>
-
 
                         <form
                             id="withdrawForm"
@@ -1039,7 +1101,6 @@
                                 >
 
                             </div>
-
 
                             <button
                                 class="withdraw-button"
@@ -1095,7 +1156,7 @@
                 </h1>
 
                 <p class="page-subtitle">
-                    Información de tu cuenta.
+                    Información de tu cuenta y verificación.
                 </p>
 
 
@@ -1132,12 +1193,24 @@
                     <div class="card">
 
                         <h2>
-                            Cuenta creada
+                            Verificación
                         </h2>
 
                         <div
-                            class="account-value"
-                            id="accountCreated">
+                            id="accountVerificationStatus"
+                            class="verification-status">
+                        </div>
+
+                        <button
+                            class="secondary-button"
+                            id="accountVerifyButton"
+                            type="button">
+                            Enviar verificación
+                        </button>
+
+                        <div
+                            id="verificationMessage"
+                            class="form-message">
                         </div>
 
                     </div>
@@ -1146,13 +1219,13 @@
                     <div class="card">
 
                         <h2>
-                            Configuración
+                            Cuenta creada
                         </h2>
 
-                        <p>
-                            Esta cuenta pertenece al prototipo
-                            local de AdMoney.
-                        </p>
+                        <div
+                            class="account-value"
+                            id="accountCreated">
+                        </div>
 
                         <button
                             class="danger-button"
@@ -1177,22 +1250,117 @@
     </section>
 
 
-    <script>
-        /* =========================================
-           CONFIGURACIÓN
-           ========================================= */
+    <!--
+        ============================================================
+        FIREBASE
+        ============================================================
 
-        const USERS_KEY = "admoney_users";
-        const SESSION_KEY = "admoney_session";
+        Esta versión utiliza Firebase Authentication para la
+        verificación REAL del correo.
+
+        Antes de usarla debes crear un proyecto Firebase y reemplazar
+        la configuración que aparece más abajo.
+
+        Firebase permite registrar usuarios con correo/contraseña
+        y enviar un enlace real de verificación al buzón.
+    -->
+
+    <script type="module">
+
+        import {
+            initializeApp
+        } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
+
+        import {
+            getAuth,
+            createUserWithEmailAndPassword,
+            signInWithEmailAndPassword,
+            sendEmailVerification,
+            signOut,
+            onAuthStateChanged,
+            reload,
+            deleteUser
+        } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
+
+
+        /* =========================================================
+           CONFIGURACIÓN FIREBASE
+           =========================================================
+
+           REEMPLAZA estos valores con los de TU proyecto.
+
+           Firebase Console:
+           Project settings -> Your apps -> Web app
+        */
+
+        const firebaseConfig = {
+
+            apiKey: "AIzaSyCJ80etyFisofz2rJI3QkcDIReXlC700d8",
+
+            authDomain:
+                "admoney-6d4ce.firebaseapp.com",
+
+            projectId:
+                "admoney-6d4ce",
+
+            storageBucket:
+                "admoney-6d4ce.firebasestorage.app",
+
+            messagingSenderId:
+                "863359797585",
+
+            appId:
+                "1:863359797585:web:78617ae99852f819af2b70"
+
+        };
+
+
+        /*
+         * Detectamos si el proyecto todavía no está configurado.
+         */
+
+        const FIREBASE_CONFIGURED =
+            !Object.values(firebaseConfig)
+                .some(value =>
+                    String(value).startsWith(
+                        "REEMPLAZAR_"
+                    )
+                );
+
+
+        let auth = null;
+
+
+        if (FIREBASE_CONFIGURED) {
+
+            const app =
+                initializeApp(firebaseConfig);
+
+            auth = getAuth(app);
+
+        }
+
+
+        /* =========================================================
+           DATOS DEL PROTOTIPO
+           ========================================================= */
+
+        const DATA_PREFIX =
+            "admoney_profile_";
+
+        const SESSION_MODE_KEY =
+            "admoney_demo_session";
 
         const REWARD_PER_ACTIVITY = 10;
+
         const DAILY_ACTIVITY_LIMIT = 10;
+
         const MIN_WITHDRAWAL = 100;
 
 
-        /* =========================================
+        /* =========================================================
            ELEMENTOS
-           ========================================= */
+           ========================================================= */
 
         const authScreen =
             document.getElementById("authScreen");
@@ -1225,55 +1393,80 @@
             document.getElementById("withdrawForm");
 
         const deleteAccountButton =
-            document.getElementById("deleteAccountButton");
+            document.getElementById(
+                "deleteAccountButton"
+            );
+
+        const bannerVerifyButton =
+            document.getElementById(
+                "bannerVerifyButton"
+            );
+
+        const accountVerifyButton =
+            document.getElementById(
+                "accountVerifyButton"
+            );
 
 
-        /* =========================================
+        /* =========================================================
            ESTADO
-           ========================================= */
+           ========================================================= */
 
-        let currentUser = null;
+        let currentAuthUser = null;
+
+        let currentProfile = null;
 
 
-        /* =========================================
+        /* =========================================================
            UTILIDADES
-           ========================================= */
+           ========================================================= */
 
-        function getUsers() {
+        function setAuthMessage(
+            message,
+            type = ""
+        ) {
 
-            try {
+            authMessage.textContent =
+                message;
 
-                const data =
-                    localStorage.getItem(USERS_KEY);
-
-                if (!data) {
-                    return [];
-                }
-
-                const users = JSON.parse(data);
-
-                return Array.isArray(users)
-                    ? users
-                    : [];
-
-            } catch (error) {
-
-                console.error(
-                    "Error cargando usuarios:",
-                    error
-                );
-
-                return [];
-            }
+            authMessage.className =
+                `form-message ${type}`;
         }
 
 
-        function saveUsers(users) {
+        function setVerificationMessage(
+            message,
+            type = ""
+        ) {
 
-            localStorage.setItem(
-                USERS_KEY,
-                JSON.stringify(users)
-            );
+            const element =
+                document.getElementById(
+                    "verificationMessage"
+                );
+
+            element.textContent =
+                message;
+
+            element.className =
+                `form-message ${type}`;
+        }
+
+
+        function setWithdrawMessage(
+            message,
+            type = ""
+        ) {
+
+            const element =
+                document.getElementById(
+                    "withdrawMessage"
+                );
+
+            element.textContent =
+                message;
+
+            element.className =
+                `withdraw-message ${type}`;
         }
 
 
@@ -1290,133 +1483,267 @@
 
         function getTodayKey() {
 
-            const now = new Date();
+            const date =
+                new Date();
 
             return [
-                now.getFullYear(),
-                String(now.getMonth() + 1).padStart(2, "0"),
-                String(now.getDate()).padStart(2, "0")
+                date.getFullYear(),
+                String(
+                    date.getMonth() + 1
+                ).padStart(2, "0"),
+                String(
+                    date.getDate()
+                ).padStart(2, "0")
             ].join("-");
         }
 
 
-        function formatDate(dateString) {
+        function formatDate(
+            dateString
+        ) {
 
             const date =
                 new Date(dateString);
 
-            if (Number.isNaN(date.getTime())) {
+            if (
+                Number.isNaN(
+                    date.getTime()
+                )
+            ) {
                 return "Fecha desconocida";
             }
 
-            return date.toLocaleString("es-CO", {
-                dateStyle: "short",
-                timeStyle: "short"
-            });
+            return date.toLocaleString(
+                "es-CO",
+                {
+                    dateStyle: "short",
+                    timeStyle: "short"
+                }
+            );
         }
 
 
-        function setAuthMessage(
-            message,
-            type = ""
-        ) {
+        /* =========================================================
+           PERFIL LOCAL DEL USUARIO
+           =========================================================
 
-            authMessage.textContent = message;
+           Firebase controla identidad y contraseña.
 
-            authMessage.className =
-                "form-message " + type;
+           Este perfil local solamente contiene datos del prototipo:
+           saldo, historial, retiros, etc.
+
+           MÁS ADELANTE estos datos deben pasar a Firestore.
+        */
+
+        function profileKey(uid) {
+
+            return `${DATA_PREFIX}${uid}`;
         }
 
 
-        function setWithdrawMessage(
-            message,
-            type = ""
-        ) {
+        function loadProfile(uid, email) {
 
-            const element =
-                document.getElementById(
-                    "withdrawMessage"
+            try {
+
+                const raw =
+                    localStorage.getItem(
+                        profileKey(uid)
+                    );
+
+                if (raw) {
+
+                    const profile =
+                        JSON.parse(raw);
+
+                    resetDailyCounter(profile);
+
+                    return profile;
+                }
+
+            } catch (error) {
+
+                console.error(
+                    "Error cargando perfil:",
+                    error
                 );
+            }
 
-            element.textContent = message;
 
-            element.className =
-                "withdraw-message " + type;
+            const profile = {
+
+                uid,
+
+                email,
+
+                username:
+                    email.split("@")[0],
+
+                balance: 0,
+
+                history: [],
+
+                withdrawals: [],
+
+                createdAt:
+                    new Date().toISOString(),
+
+                dailyActivity: {
+
+                    date:
+                        getTodayKey(),
+
+                    count: 0
+                }
+
+            };
+
+
+            saveProfile(profile);
+
+            return profile;
         }
 
 
-        /* =========================================
-           SESIÓN
-           ========================================= */
+        function saveProfile(
+            profile = currentProfile
+        ) {
 
-        function saveSession(username) {
-
-            localStorage.setItem(
-                SESSION_KEY,
-                username
-            );
-        }
-
-
-        function loadSession() {
-
-            return localStorage.getItem(
-                SESSION_KEY
-            );
-        }
-
-
-        function clearSession() {
-
-            localStorage.removeItem(
-                SESSION_KEY
-            );
-        }
-
-
-        /* =========================================
-           DATOS DEL USUARIO
-           ========================================= */
-
-        function findUser(username) {
-
-            const users = getUsers();
-
-            return users.find(
-                user =>
-                    user.username.toLowerCase() ===
-                    username.toLowerCase()
-            );
-        }
-
-
-        function saveCurrentUser() {
-
-            const users = getUsers();
-
-            const index = users.findIndex(
-                user => user.id === currentUser.id
-            );
-
-            if (index === -1) {
+            if (!profile) {
                 return;
             }
 
-            users[index] = currentUser;
-
-            saveUsers(users);
+            localStorage.setItem(
+                profileKey(profile.uid),
+                JSON.stringify(profile)
+            );
         }
 
 
-        /* =========================================
+        function resetDailyCounter(
+            profile
+        ) {
+
+            const today =
+                getTodayKey();
+
+
+            if (
+                !profile.dailyActivity ||
+                profile.dailyActivity.date !== today
+            ) {
+
+                profile.dailyActivity = {
+
+                    date: today,
+
+                    count: 0
+                };
+
+                saveProfile(profile);
+            }
+        }
+
+
+        /* =========================================================
+           FIREBASE / CUENTA
+           ========================================================= */
+
+        async function sendVerificationEmail() {
+
+            if (!FIREBASE_CONFIGURED) {
+
+                setVerificationMessage(
+                    "Firebase aún no está configurado.",
+                    "warning-message"
+                );
+
+                return;
+            }
+
+
+            if (!currentAuthUser) {
+                return;
+            }
+
+
+            try {
+
+                await sendEmailVerification(
+                    currentAuthUser
+                );
+
+
+                setVerificationMessage(
+                    `Se envió un enlace de verificación a ${currentAuthUser.email}.`,
+                    "success"
+                );
+
+            } catch (error) {
+
+                console.error(error);
+
+                setVerificationMessage(
+                    translateFirebaseError(
+                        error.code
+                    ),
+                    "error"
+                );
+            }
+        }
+
+
+        async function refreshVerificationState() {
+
+            if (
+                !FIREBASE_CONFIGURED ||
+                !currentAuthUser
+            ) {
+                return;
+            }
+
+
+            try {
+
+                await reload(
+                    currentAuthUser
+                );
+
+                currentAuthUser =
+                    auth.currentUser;
+
+                updateVerificationUI();
+
+            } catch (error) {
+
+                console.error(
+                    "No se pudo actualizar la verificación:",
+                    error
+                );
+            }
+        }
+
+
+        /* =========================================================
            REGISTRO
-           ========================================= */
+           ========================================================= */
 
         registerForm.addEventListener(
             "submit",
-            event => {
+            async event => {
 
                 event.preventDefault();
+
+
+                if (!FIREBASE_CONFIGURED) {
+
+                    setAuthMessage(
+                        "Antes de registrar usuarios debes configurar Firebase en este archivo.",
+                        "warning-message"
+                    );
+
+                    return;
+                }
+
 
                 const username =
                     document
@@ -1426,13 +1753,16 @@
                         .value
                         .trim();
 
+
                 const email =
                     document
                         .getElementById(
                             "registerEmail"
                         )
                         .value
-                        .trim();
+                        .trim()
+                        .toLowerCase();
+
 
                 const password =
                     document
@@ -1453,10 +1783,10 @@
                 }
 
 
-                if (findUser(username)) {
+                if (!isValidEmail(email)) {
 
                     setAuthMessage(
-                        "Ese usuario ya existe.",
+                        "Introduce un correo electrónico válido.",
                         "error"
                     );
 
@@ -1464,76 +1794,102 @@
                 }
 
 
-                const newUser = {
+                try {
 
-                    id: generateId(),
-
-                    username,
-
-                    email,
-
-                    /*
-                     * IMPORTANTE:
-                     * La contraseña se guarda de forma
-                     * insegura porque esto es solo un prototipo.
-                     *
-                     * En la versión real NO debe hacerse esto.
-                     */
-
-                    password,
-
-                    balance: 0,
-
-                    history: [],
-
-                    withdrawals: [],
-
-                    createdAt:
-                        new Date().toISOString(),
-
-                    dailyActivity: {
-                        date: getTodayKey(),
-                        count: 0
-                    }
-
-                };
+                    setAuthMessage(
+                        "Creando cuenta...",
+                        "info-message"
+                    );
 
 
-                const users = getUsers();
+                    const credential =
+                        await createUserWithEmailAndPassword(
+                            auth,
+                            email,
+                            password
+                        );
 
-                users.push(newUser);
 
-                saveUsers(users);
+                    currentAuthUser =
+                        credential.user;
 
-                saveSession(username);
 
-                currentUser = newUser;
+                    currentProfile =
+                        loadProfile(
+                            currentAuthUser.uid,
+                            email
+                        );
 
-                registerForm.reset();
 
-                showApp();
+                    currentProfile.username =
+                        username;
+
+                    saveProfile();
+
+
+                    await sendEmailVerification(
+                        currentAuthUser
+                    );
+
+
+                    setAuthMessage(
+                        `Cuenta creada. Hemos enviado un enlace de verificación a ${email}.`,
+                        "success"
+                    );
+
+
+                    registerForm.reset();
+
+
+                    showApp();
+
+                } catch (error) {
+
+                    console.error(error);
+
+                    setAuthMessage(
+                        translateFirebaseError(
+                            error.code
+                        ),
+                        "error"
+                    );
+                }
 
             }
         );
 
 
-        /* =========================================
+        /* =========================================================
            LOGIN
-           ========================================= */
+           ========================================================= */
 
         loginForm.addEventListener(
             "submit",
-            event => {
+            async event => {
 
                 event.preventDefault();
 
-                const username =
+
+                if (!FIREBASE_CONFIGURED) {
+
+                    setAuthMessage(
+                        "Firebase aún no está configurado.",
+                        "warning-message"
+                    );
+
+                    return;
+                }
+
+
+                const email =
                     document
                         .getElementById(
-                            "loginUsername"
+                            "loginEmail"
                         )
                         .value
-                        .trim();
+                        .trim()
+                        .toLowerCase();
+
 
                 const password =
                     document
@@ -1543,61 +1899,78 @@
                         .value;
 
 
-                const user = findUser(username);
-
-
-                if (!user) {
+                try {
 
                     setAuthMessage(
-                        "Usuario o contraseña incorrectos.",
-                        "error"
+                        "Iniciando sesión...",
+                        "info-message"
                     );
 
-                    return;
-                }
+
+                    const credential =
+                        await signInWithEmailAndPassword(
+                            auth,
+                            email,
+                            password
+                        );
 
 
-                if (user.password !== password) {
+                    currentAuthUser =
+                        credential.user;
+
+
+                    currentProfile =
+                        loadProfile(
+                            currentAuthUser.uid,
+                            currentAuthUser.email
+                        );
+
+
+                    loginForm.reset();
+
+                    showApp();
+
+                } catch (error) {
+
+                    console.error(error);
 
                     setAuthMessage(
-                        "Usuario o contraseña incorrectos.",
+                        translateFirebaseError(
+                            error.code
+                        ),
                         "error"
                     );
-
-                    return;
                 }
-
-
-                currentUser = user;
-
-                saveSession(user.username);
-
-                loginForm.reset();
-
-                showApp();
 
             }
         );
 
 
-        /* =========================================
-           TABS DE AUTENTICACIÓN
-           ========================================= */
+        /* =========================================================
+           TABS
+           ========================================================= */
 
         loginTab.addEventListener(
             "click",
             () => {
 
-                loginTab.classList.add("active");
+                loginTab.classList.add(
+                    "active"
+                );
 
-                registerTab.classList.remove("active");
+                registerTab.classList.remove(
+                    "active"
+                );
 
-                loginForm.classList.remove("hidden");
+                loginForm.classList.remove(
+                    "hidden"
+                );
 
-                registerForm.classList.add("hidden");
+                registerForm.classList.add(
+                    "hidden"
+                );
 
                 setAuthMessage("");
-
             }
         );
 
@@ -1606,29 +1979,126 @@
             "click",
             () => {
 
-                registerTab.classList.add("active");
+                registerTab.classList.add(
+                    "active"
+                );
 
-                loginTab.classList.remove("active");
+                loginTab.classList.remove(
+                    "active"
+                );
 
-                registerForm.classList.remove("hidden");
+                registerForm.classList.remove(
+                    "hidden"
+                );
 
-                loginForm.classList.add("hidden");
+                loginForm.classList.add(
+                    "hidden"
+                );
 
                 setAuthMessage("");
-
             }
         );
 
 
-        /* =========================================
+        /* =========================================================
+           SESIÓN
+           ========================================================= */
+
+        logoutButton.addEventListener(
+            "click",
+            async () => {
+
+                try {
+
+                    if (
+                        FIREBASE_CONFIGURED &&
+                        auth.currentUser
+                    ) {
+
+                        await signOut(auth);
+
+                    } else {
+
+                        localStorage.removeItem(
+                            SESSION_MODE_KEY
+                        );
+
+                        showAuth();
+                    }
+
+                } catch (error) {
+
+                    console.error(error);
+                }
+            }
+        );
+
+
+        /* =========================================================
+           FIREBASE AUTH STATE
+           ========================================================= */
+
+        if (FIREBASE_CONFIGURED) {
+
+            onAuthStateChanged(
+                auth,
+                user => {
+
+                    currentAuthUser =
+                        user;
+
+                    if (user) {
+
+                        currentProfile =
+                            loadProfile(
+                                user.uid,
+                                user.email
+                            );
+
+                        showApp();
+
+                    } else {
+
+                        currentProfile =
+                            null;
+
+                        showAuth();
+                    }
+                }
+            );
+
+        } else {
+
+            showAuth();
+        }
+
+
+        /* =========================================================
            MOSTRAR APP
-           ========================================= */
+           ========================================================= */
 
         function showApp() {
 
-            authScreen.classList.add("hidden");
+            if (
+                !currentAuthUser ||
+                !currentProfile
+            ) {
+                return;
+            }
 
-            appScreen.classList.remove("hidden");
+
+            authScreen.classList.add(
+                "hidden"
+            );
+
+            appScreen.classList.remove(
+                "hidden"
+            );
+
+
+            resetDailyCounter(
+                currentProfile
+            );
 
             updateUserInterface();
 
@@ -1638,35 +2108,19 @@
 
         function showAuth() {
 
-            appScreen.classList.add("hidden");
+            appScreen.classList.add(
+                "hidden"
+            );
 
-            authScreen.classList.remove("hidden");
-
-            loginTab.click();
+            authScreen.classList.remove(
+                "hidden"
+            );
         }
 
 
-        /* =========================================
-           CERRAR SESIÓN
-           ========================================= */
-
-        logoutButton.addEventListener(
-            "click",
-            () => {
-
-                currentUser = null;
-
-                clearSession();
-
-                showAuth();
-
-            }
-        );
-
-
-        /* =========================================
+        /* =========================================================
            NAVEGACIÓN
-           ========================================= */
+           ========================================================= */
 
         document
             .querySelectorAll(".nav-button")
@@ -1676,17 +2130,19 @@
                     "click",
                     () => {
 
-                        const page =
-                            button.dataset.page;
-
-                        showPage(page);
+                        showPage(
+                            button.dataset.page
+                        );
 
                     }
                 );
+
             });
 
 
-        function showPage(pageId) {
+        function showPage(
+            pageId
+        ) {
 
             document
                 .querySelectorAll(".page")
@@ -1699,29 +2155,29 @@
                 });
 
 
-            document
-                .getElementById(pageId)
-                .classList.add("active");
+            const target =
+                document.getElementById(
+                    pageId
+                );
+
+
+            if (target) {
+
+                target.classList.add(
+                    "active"
+                );
+            }
 
 
             document
                 .querySelectorAll(".nav-button")
                 .forEach(button => {
 
-                    button.classList.remove(
-                        "active"
-                    );
-
-                    if (
+                    button.classList.toggle(
+                        "active",
                         button.dataset.page ===
                         pageId
-                    ) {
-
-                        button.classList.add(
-                            "active"
-                        );
-
-                    }
+                    );
 
                 });
 
@@ -1730,39 +2186,17 @@
         }
 
 
-        /* =========================================
-           ACTIVIDADES DIARIAS
-           ========================================= */
-
-        function resetDailyCounterIfNeeded() {
-
-            const today =
-                getTodayKey();
-
-
-            if (
-                !currentUser.dailyActivity ||
-                currentUser.dailyActivity.date !== today
-            ) {
-
-                currentUser.dailyActivity = {
-
-                    date: today,
-
-                    count: 0
-
-                };
-
-                saveCurrentUser();
-            }
-        }
-
+        /* =========================================================
+           ACTIVIDADES
+           ========================================================= */
 
         function getTodayActivityCount() {
 
-            resetDailyCounterIfNeeded();
+            resetDailyCounter(
+                currentProfile
+            );
 
-            return currentUser
+            return currentProfile
                 .dailyActivity
                 .count;
         }
@@ -1778,53 +2212,55 @@
         }
 
 
-        /* =========================================
-           ACTIVIDAD
-           ========================================= */
-
         watchButton.addEventListener(
             "click",
             () => {
 
-                resetDailyCounterIfNeeded();
-
-                const count =
-                    getTodayActivityCount();
-
-
                 if (
-                    count >=
-                    DAILY_ACTIVITY_LIMIT
+                    !currentAuthUser.emailVerified
                 ) {
 
-                    updateWatchButton();
+                    alert(
+                        "Primero debes verificar tu correo."
+                    );
 
                     return;
                 }
 
 
-                watchButton.disabled = true;
+                const remaining =
+                    getRemainingActivities();
+
+
+                if (remaining <= 0) {
+                    return;
+                }
+
+
+                watchButton.disabled =
+                    true;
 
                 watchButton.textContent =
                     "Procesando...";
 
 
                 /*
-                 * Simulación de una actividad.
+                 * ESTA PARTE SIGUE SIENDO UNA SIMULACIÓN.
                  */
 
                 setTimeout(() => {
 
-                    currentUser.balance +=
+                    currentProfile.balance +=
                         REWARD_PER_ACTIVITY;
 
 
-                    currentUser.dailyActivity.count++;
+                    currentProfile.dailyActivity.count++;
 
 
-                    currentUser.history.unshift({
+                    currentProfile.history.unshift({
 
-                        id: generateId(),
+                        id:
+                            generateId(),
 
                         type:
                             "Actividad publicitaria",
@@ -1838,10 +2274,12 @@
                     });
 
 
-                    saveCurrentUser();
+                    saveProfile();
+
 
                     watchButton.disabled =
                         false;
+
 
                     updateUserInterface();
 
@@ -1857,39 +2295,68 @@
                 getRemainingActivities();
 
 
-            if (remaining <= 0) {
+            if (
+                !currentAuthUser.emailVerified
+            ) {
 
-                watchButton.disabled = true;
+                watchButton.disabled =
+                    true;
+
+                watchButton.textContent =
+                    "Verifica tu correo";
+
+            } else if (
+                remaining <= 0
+            ) {
+
+                watchButton.disabled =
+                    true;
 
                 watchButton.textContent =
                     "Límite diario alcanzado";
 
             } else {
 
-                watchButton.disabled = false;
+                watchButton.disabled =
+                    false;
 
                 watchButton.textContent =
-                    "Ver anuncio";
-
+                    "Ver actividad";
             }
 
 
             document
-                .getElementById("limitInfo")
+                .getElementById(
+                    "limitInfo"
+                )
                 .textContent =
                 `${remaining} actividades restantes hoy`;
         }
 
 
-        /* =========================================
+        /* =========================================================
            RETIROS
-           ========================================= */
+           ========================================================= */
 
         withdrawForm.addEventListener(
             "submit",
             event => {
 
                 event.preventDefault();
+
+
+                if (
+                    !currentAuthUser.emailVerified
+                ) {
+
+                    setWithdrawMessage(
+                        "Debes verificar tu correo antes de solicitar un retiro.",
+                        "error"
+                    );
+
+                    return;
+                }
+
 
                 const amount =
                     Number(
@@ -1899,9 +2366,6 @@
                             )
                             .value
                     );
-
-
-                setWithdrawMessage("");
 
 
                 if (
@@ -1934,7 +2398,7 @@
 
                 if (
                     amount >
-                    currentUser.balance
+                    currentProfile.balance
                 ) {
 
                     setWithdrawMessage(
@@ -1946,24 +2410,28 @@
                 }
 
 
-                currentUser.balance -= amount;
+                currentProfile.balance -=
+                    amount;
 
 
-                currentUser.withdrawals.unshift({
+                currentProfile.withdrawals
+                    .unshift({
 
-                    id: generateId(),
+                        id:
+                            generateId(),
 
-                    amount,
+                        amount,
 
-                    status: "Pendiente",
+                        status:
+                            "Pendiente",
 
-                    date:
-                        new Date().toISOString()
+                        date:
+                            new Date().toISOString()
 
-                });
+                    });
 
 
-                saveCurrentUser();
+                saveProfile();
 
 
                 document
@@ -1980,149 +2448,126 @@
 
 
                 updateUserInterface();
-
             }
         );
 
 
-        /* =========================================
-           ELIMINAR CUENTA
-           ========================================= */
+        /* =========================================================
+           VERIFICACIÓN
+           ========================================================= */
 
-        deleteAccountButton.addEventListener(
+        bannerVerifyButton.addEventListener(
             "click",
-            () => {
-
-                const confirmed =
-                    confirm(
-                        "¿Seguro que quieres eliminar esta cuenta local?"
-                    );
-
-
-                if (!confirmed) {
-                    return;
-                }
-
-
-                const users = getUsers();
-
-
-                const filteredUsers =
-                    users.filter(
-                        user =>
-                            user.id !==
-                            currentUser.id
-                    );
-
-
-                saveUsers(filteredUsers);
-
-                clearSession();
-
-                currentUser = null;
-
-                showAuth();
-
-            }
+            sendVerificationEmail
         );
 
 
-        /* =========================================
-           ACTUALIZAR INTERFAZ
-           ========================================= */
+        accountVerifyButton.addEventListener(
+            "click",
+            sendVerificationEmail
+        );
 
-        function updateUserInterface() {
 
-            if (!currentUser) {
+        async function updateVerificationUI() {
+
+            if (
+                !currentAuthUser
+            ) {
                 return;
             }
 
 
-            resetDailyCounterIfNeeded();
+            const verified =
+                currentAuthUser.emailVerified;
 
 
-            document
-                .getElementById(
-                    "headerUsername"
-                )
-                .textContent =
-                `@${currentUser.username}`;
+            const homeStatus =
+                document.getElementById(
+                    "homeVerificationStatus"
+                );
 
 
-            document
-                .getElementById(
-                    "welcomeUsername"
-                )
-                .textContent =
-                currentUser.username;
+            const accountStatus =
+                document.getElementById(
+                    "accountVerificationStatus"
+                );
 
 
-            document
-                .getElementById(
-                    "homeBalance"
-                )
-                .textContent =
-                currentUser.balance;
+            const banner =
+                document.getElementById(
+                    "verificationBanner"
+                );
 
 
-            document
-                .getElementById(
-                    "withdrawBalance"
-                )
-                .textContent =
-                currentUser.balance;
+            const accountButton =
+                document.getElementById(
+                    "accountVerifyButton"
+                );
 
 
-            const todayCount =
-                getTodayActivityCount();
+            if (verified) {
+
+                homeStatus.textContent =
+                    "Correo verificado";
+
+                homeStatus.className =
+                    "verification-status verified";
 
 
-            document
-                .getElementById(
-                    "todayActivities"
-                )
-                .textContent =
-                todayCount;
+                accountStatus.textContent =
+                    "Correo verificado";
+
+                accountStatus.className =
+                    "verification-status verified";
 
 
-            document
-                .getElementById(
-                    "remainingActivities"
-                )
-                .textContent =
-                getRemainingActivities();
+                banner.classList.add(
+                    "hidden"
+                );
 
 
-            const progress =
-                (
-                    todayCount /
-                    DAILY_ACTIVITY_LIMIT
-                ) * 100;
+                accountButton.disabled =
+                    true;
+
+                accountButton.textContent =
+                    "Correo verificado";
+
+            } else {
+
+                homeStatus.textContent =
+                    "Correo pendiente de verificación";
+
+                homeStatus.className =
+                    "verification-status unverified";
 
 
-            document
-                .getElementById(
-                    "activityProgress"
-                )
-                .style.width =
-                `${progress}%`;
+                accountStatus.textContent =
+                    "Correo pendiente de verificación";
+
+                accountStatus.className =
+                    "verification-status unverified";
+
+
+                banner.classList.remove(
+                    "hidden"
+                );
+
+
+                accountButton.disabled =
+                    false;
+
+                accountButton.textContent =
+                    "Enviar verificación";
+            }
 
 
             updateWatchButton();
-
-
-            renderHistory();
-
-            renderWithdrawals();
-
-            renderAccount();
-
         }
 
 
-        /* =========================================
+        /* =========================================================
            HISTORIAL
-           ========================================= */
+           ========================================================= */
 
         function renderHistory() {
 
@@ -2130,6 +2575,7 @@
                 document.getElementById(
                     "historyList"
                 );
+
 
             const historyEmpty =
                 document.getElementById(
@@ -2141,7 +2587,7 @@
 
 
             if (
-                currentUser.history.length === 0
+                currentProfile.history.length === 0
             ) {
 
                 historyEmpty.style.display =
@@ -2155,7 +2601,7 @@
                 "none";
 
 
-            currentUser.history.forEach(
+            currentProfile.history.forEach(
                 entry => {
 
                     const item =
@@ -2224,16 +2670,17 @@
 
                     item.appendChild(reward);
 
-                    historyList.appendChild(item);
-
+                    historyList.appendChild(
+                        item
+                    );
                 }
             );
         }
 
 
-        /* =========================================
+        /* =========================================================
            RETIROS
-           ========================================= */
+           ========================================================= */
 
         function renderWithdrawals() {
 
@@ -2241,6 +2688,7 @@
                 document.getElementById(
                     "withdrawList"
                 );
+
 
             const empty =
                 document.getElementById(
@@ -2252,7 +2700,7 @@
 
 
             if (
-                currentUser.withdrawals.length === 0
+                currentProfile.withdrawals.length === 0
             ) {
 
                 empty.style.display =
@@ -2266,7 +2714,7 @@
                 "none";
 
 
-            currentUser.withdrawals.forEach(
+            currentProfile.withdrawals.forEach(
                 withdrawal => {
 
                     const item =
@@ -2335,9 +2783,9 @@
         }
 
 
-        /* =========================================
+        /* =========================================================
            CUENTA
-           ========================================= */
+           ========================================================= */
 
         function renderAccount() {
 
@@ -2346,7 +2794,7 @@
                     "accountUsername"
                 )
                 .textContent =
-                currentUser.username;
+                currentProfile.username;
 
 
             document
@@ -2354,7 +2802,7 @@
                     "accountEmail"
                 )
                 .textContent =
-                currentUser.email;
+                currentAuthUser.email;
 
 
             document
@@ -2363,55 +2811,238 @@
                 )
                 .textContent =
                 formatDate(
-                    currentUser.createdAt
+                    currentProfile.createdAt
                 );
         }
 
 
-        /* =========================================
-           RECUPERAR SESIÓN AL CARGAR
-           ========================================= */
+        /* =========================================================
+           UI GENERAL
+           ========================================================= */
 
-        function restoreSession() {
+        function updateUserInterface() {
 
-            const username =
-                loadSession();
-
-
-            if (!username) {
-
-                showAuth();
-
+            if (
+                !currentAuthUser ||
+                !currentProfile
+            ) {
                 return;
             }
 
 
-            const user =
-                findUser(username);
+            resetDailyCounter(
+                currentProfile
+            );
 
 
-            if (!user) {
-
-                clearSession();
-
-                showAuth();
-
-                return;
-            }
+            document
+                .getElementById(
+                    "headerUsername"
+                )
+                .textContent =
+                `@${currentProfile.username}`;
 
 
-            currentUser = user;
+            document
+                .getElementById(
+                    "welcomeUsername"
+                )
+                .textContent =
+                currentProfile.username;
 
-            showApp();
 
+            document
+                .getElementById(
+                    "homeBalance"
+                )
+                .textContent =
+                currentProfile.balance;
+
+
+            document
+                .getElementById(
+                    "withdrawBalance"
+                )
+                .textContent =
+                currentProfile.balance;
+
+
+            const todayCount =
+                getTodayActivityCount();
+
+
+            document
+                .getElementById(
+                    "todayActivities"
+                )
+                .textContent =
+                todayCount;
+
+
+            const remaining =
+                getRemainingActivities();
+
+
+            document
+                .getElementById(
+                    "remainingActivities"
+                )
+                .textContent =
+                remaining;
+
+
+            const progress =
+                Math.min(
+                    100,
+                    (
+                        todayCount /
+                        DAILY_ACTIVITY_LIMIT
+                    ) * 100
+                );
+
+
+            document
+                .getElementById(
+                    "activityProgress"
+                )
+                .style.width =
+                `${progress}%`;
+
+
+            updateWatchButton();
+
+            renderHistory();
+
+            renderWithdrawals();
+
+            renderAccount();
+
+            updateVerificationUI();
         }
 
 
-        /* =========================================
-           INICIAR
-           ========================================= */
+        /* =========================================================
+           BORRAR CUENTA
+           ========================================================= */
 
-        restoreSession();
+        deleteAccountButton.addEventListener(
+            "click",
+            async () => {
+
+                const confirmed =
+                    confirm(
+                        "¿Seguro que quieres eliminar esta cuenta? Esta acción no se puede deshacer."
+                    );
+
+
+                if (!confirmed) {
+                    return;
+                }
+
+
+                try {
+
+                    localStorage.removeItem(
+                        profileKey(
+                            currentProfile.uid
+                        )
+                    );
+
+
+                    if (
+                        FIREBASE_CONFIGURED &&
+                        currentAuthUser
+                    ) {
+
+                        await deleteUser(
+                            currentAuthUser
+                        );
+
+                    }
+
+
+                    currentProfile = null;
+
+                    currentAuthUser = null;
+
+                    showAuth();
+
+                } catch (error) {
+
+                    console.error(error);
+
+                    alert(
+                        "No se pudo eliminar la cuenta. Es posible que debas volver a iniciar sesión antes."
+                    );
+
+                }
+
+            }
+        );
+
+
+        /* =========================================================
+           VALIDACIÓN DEL CORREO
+           ========================================================= */
+
+        function isValidEmail(email) {
+
+            /*
+             * Esto solamente comprueba la estructura básica.
+             * La existencia del buzón se verifica enviando
+             * el enlace de Firebase.
+             */
+
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(
+                email
+            );
+        }
+
+
+        /* =========================================================
+           ERRORES FIREBASE
+           ========================================================= */
+
+        function translateFirebaseError(
+            code
+        ) {
+
+            const messages = {
+
+                "auth/email-already-in-use":
+                    "Ese correo ya tiene una cuenta.",
+
+                "auth/invalid-email":
+                    "El correo electrónico no es válido.",
+
+                "auth/weak-password":
+                    "La contraseña es demasiado débil.",
+
+                "auth/invalid-credential":
+                    "Correo o contraseña incorrectos.",
+
+                "auth/user-not-found":
+                    "Correo o contraseña incorrectos.",
+
+                "auth/wrong-password":
+                    "Correo o contraseña incorrectos.",
+
+                "auth/too-many-requests":
+                    "Demasiados intentos. Inténtalo más tarde.",
+
+                "auth/network-request-failed":
+                    "No se pudo conectar con el servicio.",
+
+                "auth/operation-not-allowed":
+                    "El inicio de sesión con correo y contraseña no está habilitado en Firebase."
+            };
+
+
+            return (
+                messages[code] ||
+                `Ocurrió un error: ${code}`
+            );
+        }
 
     </script>
 
